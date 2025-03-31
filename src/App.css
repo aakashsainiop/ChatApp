@@ -274,46 +274,71 @@ body {
 }
 
 .chat-header {
-  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .chat-user-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
+}
+
+.chat-user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .chat-user-info h3 {
-  color: white;
   margin: 0;
-  font-size: 15px;
-  font-weight: 500;
+  color: white;
+  font-size: 1rem;
 }
 
-.chat-user-info p {
-  color: rgba(255, 255, 255, 0.6);
-  margin: 2px 0 0;
-  font-size: 13px;
+.chat-user-info .status {
+  margin: 2px 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.chat-user-info .status.online {
+  color: #4CAF50;
+}
+
+.chat-user-info .status.offline {
+  color: #888;
+}
+
+.chat-user-info .username {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64B5F6;
+  opacity: 0.8;
 }
 
 .chat-actions {
   display: flex;
-  gap: 12px;
+  gap: 0.5rem;
 }
 
 .chat-actions .icon-btn {
+  background: none;
+  border: none;
   color: white;
-  opacity: 0.9;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s;
 }
 
 .chat-actions .icon-btn:hover {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #2a2a2a;
 }
 
 .messages-container {

@@ -385,8 +385,17 @@ const Chat = () => {
         await setDoc(doc(db, "chats", chatId), {
           participants: [auth.currentUser.uid, user.id],
           createdAt: serverTimestamp(),
-          lastMessage: "",
+          lastMessage: "Hello! 👋",
           lastMessageTime: serverTimestamp(),
+        });
+
+        // Add initial hello message
+        await addDoc(collection(db, `chats/${chatId}/messages`), {
+          text: "Hello! 👋",
+          timestamp: serverTimestamp(),
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName,
+          photoURL: auth.currentUser.photoURL,
         });
       }
 
@@ -400,6 +409,11 @@ const Chat = () => {
           username: user.username,
         },
       });
+
+      // Switch to chats tab if we're on requests tab
+      if (activeTab === "requests") {
+        setActiveTab("chats");
+      }
     } catch (error) {
       console.error("Error selecting chat:", error);
     }
@@ -570,16 +584,21 @@ const Chat = () => {
           <div className="chat-user-info">
             <img
               src={
-                selectedChat?.user.photoURL || "https://via.placeholder.com/40"
+                selectedChat?.user?.photoURL || "https://via.placeholder.com/40"
               }
-              alt="chat avatar"
+              alt={selectedChat?.user?.displayName || "Select a chat"}
               className="chat-avatar"
             />
             <div>
-              <h3>{selectedChat?.user.displayName || "Select a chat"}</h3>
-              <p>
-                {selectedChat?.user.status === "online" ? "Online" : "Offline"}
+              <h3>{selectedChat?.user?.displayName || "Select a chat"}</h3>
+              <p
+                className={`status ${
+                  selectedChat?.user?.status?.toLowerCase() || "offline"
+                }`}
+              >
+                {selectedChat?.user?.status || "Offline"}
               </p>
+              <p className="username">@{selectedChat?.user?.username}</p>
             </div>
           </div>
           <div className="chat-actions">
